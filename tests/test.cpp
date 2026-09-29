@@ -5,9 +5,11 @@
 
 #include <gtest/gtest.h>
 
-TEST(RandomTest, CustomConstructorTest) {
-  gambler::Random r0(0x123456789abcdefULL, 0xfedcba987654321ULL);
-  gambler::Random r1(0x0ULL, 0x0ULL);
+namespace gambler {
+
+TEST(HostRandomTest, CustomConstructorTest) {
+  HostRandom r0(0x123456789abcdefULL, 0xfedcba987654321ULL);
+  HostRandom r1(0x0ULL, 0x0ULL);
 
   float f0 = r0.GetUniformFloat32();
   float f1 = r1.GetUniformFloat32();
@@ -20,10 +22,10 @@ TEST(RandomTest, CustomConstructorTest) {
   EXPECT_NE(f0, f1);
 }
 
-TEST(RandomTest, SetSeedTest) {
-  gambler::Random r0;
-  gambler::Random r1;
-  gambler::Random r2;
+TEST(HostRandomTest, SetSeedTest) {
+  HostRandom r0;
+  HostRandom r1;
+  HostRandom r2;
 
   r0.SetSeed(0xdeadbeefULL, 0xcafebabeULL);
   r1.SetSeed(0xdeadbeefULL, 0xcafebabeULL);
@@ -41,14 +43,14 @@ TEST(RandomTest, SetSeedTest) {
   EXPECT_NE(f0, f2);
 }
 
-TEST(RandomTest, GetUniformTest) {
-  gambler::Random r0;
+TEST(HostRandomTest, GetUniformTest) {
+  HostRandom r0;
 
   r0.SetSeed(0xabcdef123ULL, 0x987654321ULL);
 
-  gambler::Random r1 = r0;
-  gambler::Random r2 = r0;
-  gambler::Random r3 = r0;
+  HostRandom r1 = r0;
+  HostRandom r2 = r0;
+  HostRandom r3 = r0;
 
   for (int i = 0; i < 10; i++) {
     uint32_t u0 = r0.GetUniformUnsignedInt32();
@@ -76,13 +78,13 @@ TEST(RandomTest, GetUniformTest) {
   }
 }
 
-TEST(RandomTest, GetBoundedTest) {
-  gambler::Random r0;
+TEST(HostRandomTest, GetBoundedTest) {
+  HostRandom r0;
 
   r0.SetSeed(0x111222333ULL, 0x444555666ULL);
 
-  gambler::Random r1 = r0;
-  gambler::Random r2 = r0;
+  HostRandom r1 = r0;
+  HostRandom r2 = r0;
 
   for (int i = 0; i < 10; i++) {
     uint32_t u0 = r0.GetBoundedUnsignedInt32(100u);
@@ -105,10 +107,10 @@ TEST(RandomTest, GetBoundedTest) {
   EXPECT_EQ(u1, 0ull);
 }
 
-TEST(RandomTest, GetNormalTest) {
-  gambler::Random r0;
-  gambler::Random r1;
-  gambler::Random r2;
+TEST(HostRandomTest, GetNormalTest) {
+  HostRandom r0;
+  HostRandom r1;
+  HostRandom r2;
 
   r0.SetSeed(0xaabbccddULL, 0x11223344ULL);
   r1.SetSeed(0xaabbccddULL, 0x11223344ULL);
@@ -147,9 +149,9 @@ TEST(RandomTest, GetNormalTest) {
   EXPECT_FALSE(std::isnan(n0));
 }
 
-TEST(GlobalP32Test, GlobalP32Test) {
-  float u0 = gambler::GLOBAL_P32_RANDOM.GetUniformFloat32();
-  float u1 = gambler::GLOBAL_P32_RANDOM.GetUniformFloat32();
+TEST(GlobalHostRandomTest, GlobalHostRandomTest) {
+  float u0 = kGlobalHostRandom.GetUniformFloat32();
+  float u1 = kGlobalHostRandom.GetUniformFloat32();
 
   EXPECT_GE(u0, 0.0f);
   EXPECT_LT(u0, 1.0f);
@@ -158,3 +160,5 @@ TEST(GlobalP32Test, GlobalP32Test) {
 
   EXPECT_NE(u0, u1);
 }
+
+} // namespace gambler

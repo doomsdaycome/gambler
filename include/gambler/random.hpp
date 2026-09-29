@@ -34,25 +34,37 @@
 #include <cstdint>
 #include <limits>
 
+#if __has_include(<stdfloat>)
+#include <stdfloat>
+#endif
+
 namespace gambler {
-class Random {
+
+class HostRandom {
 private:
   uint64_t state_ = 0x853c49e6748fea9bULL;
   uint64_t increment_ = 0xda3e39cb94b95bdbULL;
 
+#if defined(__STDCPP_FLOAT16_T__)
+  std::float32_t normal_float_32_ =
+      std::numeric_limits<std::float32_t>::quiet_NaN();
+  std::float64_t normal_float_64_ =
+      std::numeric_limits<std::float64_t>::quiet_NaN();
+#else
   float normal_float_32_ = std::numeric_limits<float>::quiet_NaN();
-  float normal_float_64_ = std::numeric_limits<double>::quiet_NaN();
+  double normal_float_64_ = std::numeric_limits<double>::quiet_NaN();
+#endif
 
 public:
-  Random() = default;
-  Random(Random &&other) = default;
-  Random(const Random &other) = default;
-  Random(uint64_t initial_state, uint64_t initial_sequence);
+  HostRandom() = default;
+  HostRandom(HostRandom &&other) = default;
+  HostRandom(const HostRandom &other) = default;
+  HostRandom(uint64_t initial_state, uint64_t initial_sequence);
 
-  ~Random() = default;
+  ~HostRandom() = default;
 
-  Random &operator=(Random &&other) = default;
-  Random &operator=(const Random &other) = default;
+  HostRandom &operator=(HostRandom &&other) = default;
+  HostRandom &operator=(const HostRandom &other) = default;
 
   void SetSeed(uint64_t initial_state, uint64_t initial_sequence);
 
@@ -60,8 +72,13 @@ public:
   template <typename T> T GetBounded(T bound);
   template <typename T> T GetNormal(T mu, T sigma);
 
+#if defined(__STDCPP_FLOAT16_T__)
+  std::float32_t GetUniformFloat32();
+  std::float64_t GetUniformFloat64();
+#else
   float GetUniformFloat32();
   double GetUniformFloat64();
+#endif
 
   uint32_t GetUniformUnsignedInt32();
   uint64_t GetUniformUnsignedInt64();
@@ -69,11 +86,17 @@ public:
   uint32_t GetBoundedUnsignedInt32(uint32_t bound);
   uint64_t GetBoundedUnsignedInt64(uint64_t bound);
 
+#if defined(__STDCPP_FLOAT16_T__)
+  std::float32_t GetNormalFloat32(std::float32_t mu, std::float32_t sigma);
+  std::float64_t GetNormalFloat64(std::float64_t mu, std::float64_t sigma);
+#else
   float GetNormalFloat32(float mu, float sigma);
   double GetNormalFloat64(double mu, double sigma);
+#endif
 };
 
-extern Random GLOBAL_P32_RANDOM;
+extern HostRandom kGlobalHostRandom;
+
 } // namespace gambler
 
 #endif // !GAMBLER_RANDOM_HPP_

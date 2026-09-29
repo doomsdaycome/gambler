@@ -3,12 +3,12 @@ cmake_minimum_required(VERSION 3.23)
 project(gambler VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 option(BUILD_SHARED_LIBS "Build gambler as a shared library" ON)
 option(BUILD_TESTS "Build gambler unit tests" ON)
-option(BUILD_EXAMPLES "Build gambler example binaries" OFF)
+option(BUILD_EXAMPLES "Build gambler example binaries" ON)
 
 add_library(gambler)
 target_sources(gambler PRIVATE src/random.cpp)
