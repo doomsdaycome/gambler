@@ -9,8 +9,8 @@ TEST(RandomTest, CustomConstructorTest) {
   gambler::Random r0(0x123456789abcdefULL, 0xfedcba987654321ULL);
   gambler::Random r1(0x0ULL, 0x0ULL);
 
-  float f0 = r0.getUniformFloat32();
-  float f1 = r1.getUniformFloat32();
+  float f0 = r0.GetUniformFloat32();
+  float f1 = r1.GetUniformFloat32();
 
   EXPECT_GE(f0, 0.0f);
   EXPECT_LT(f0, 1.0f);
@@ -25,18 +25,18 @@ TEST(RandomTest, SetSeedTest) {
   gambler::Random r1;
   gambler::Random r2;
 
-  r0.setSeed(0xdeadbeefULL, 0xcafebabeULL);
-  r1.setSeed(0xdeadbeefULL, 0xcafebabeULL);
-  r2.setSeed(0x11111111ULL, 0x22222222ULL);
+  r0.SetSeed(0xdeadbeefULL, 0xcafebabeULL);
+  r1.SetSeed(0xdeadbeefULL, 0xcafebabeULL);
+  r2.SetSeed(0x11111111ULL, 0x22222222ULL);
 
-  EXPECT_EQ(r0.getUniformUnsignedInt32(), r1.getUniformUnsignedInt32());
-  EXPECT_EQ(r0.getUniformUnsignedInt64(), r1.getUniformUnsignedInt64());
+  EXPECT_EQ(r0.GetUniformUnsignedInt32(), r1.GetUniformUnsignedInt32());
+  EXPECT_EQ(r0.GetUniformUnsignedInt64(), r1.GetUniformUnsignedInt64());
 
-  EXPECT_EQ(r0.getUniformFloat32(), r1.getUniformFloat32());
-  EXPECT_EQ(r0.getUniformFloat64(), r1.getUniformFloat64());
+  EXPECT_EQ(r0.GetUniformFloat32(), r1.GetUniformFloat32());
+  EXPECT_EQ(r0.GetUniformFloat64(), r1.GetUniformFloat64());
 
-  float f0 = r0.getUniformFloat32();
-  float f2 = r2.getUniformFloat32();
+  float f0 = r0.GetUniformFloat32();
+  float f2 = r2.GetUniformFloat32();
 
   EXPECT_NE(f0, f2);
 }
@@ -44,32 +44,32 @@ TEST(RandomTest, SetSeedTest) {
 TEST(RandomTest, GetUniformTest) {
   gambler::Random r0;
 
-  r0.setSeed(0xabcdef123ULL, 0x987654321ULL);
+  r0.SetSeed(0xabcdef123ULL, 0x987654321ULL);
 
   gambler::Random r1 = r0;
   gambler::Random r2 = r0;
   gambler::Random r3 = r0;
 
   for (int i = 0; i < 10; i++) {
-    uint32_t u0 = r0.getUniformUnsignedInt32();
+    uint32_t u0 = r0.GetUniformUnsignedInt32();
 
     EXPECT_GE(u0, 0u);
   }
 
   for (int i = 0; i < 10; i++) {
-    uint64_t u0 = r1.getUniformUnsignedInt64();
+    uint64_t u0 = r1.GetUniformUnsignedInt64();
     EXPECT_GE(u0, 0ull);
   }
 
   for (int i = 0; i < 10; i++) {
-    float f0 = r2.getUniformFloat32();
+    float f0 = r2.GetUniformFloat32();
 
     EXPECT_GE(f0, 0.0f);
     EXPECT_LT(f0, 1.0f);
   }
 
   for (int i = 0; i < 10; i++) {
-    double f0 = r3.getUniformFloat64();
+    double f0 = r3.GetUniformFloat64();
 
     EXPECT_GE(f0, 0.0);
     EXPECT_LT(f0, 1.0);
@@ -79,27 +79,27 @@ TEST(RandomTest, GetUniformTest) {
 TEST(RandomTest, GetBoundedTest) {
   gambler::Random r0;
 
-  r0.setSeed(0x111222333ULL, 0x444555666ULL);
+  r0.SetSeed(0x111222333ULL, 0x444555666ULL);
 
   gambler::Random r1 = r0;
   gambler::Random r2 = r0;
 
   for (int i = 0; i < 10; i++) {
-    uint32_t u0 = r0.getBoundedUnsignedInt32(100u);
+    uint32_t u0 = r0.GetBoundedUnsignedInt32(100u);
 
     EXPECT_GE(u0, 0u);
     EXPECT_LT(u0, 100u);
   }
 
   for (int i = 0; i < 10; i++) {
-    uint64_t u0 = r1.getBoundedUnsignedInt64(100ull);
+    uint64_t u0 = r1.GetBoundedUnsignedInt64(100ull);
 
     EXPECT_GE(u0, 0ull);
     EXPECT_LT(u0, 100ull);
   }
 
-  uint32_t u0 = r2.getBoundedUnsignedInt32(1u);
-  uint64_t u1 = r2.getBoundedUnsignedInt64(1ull);
+  uint32_t u0 = r2.GetBoundedUnsignedInt32(1u);
+  uint64_t u1 = r2.GetBoundedUnsignedInt64(1ull);
 
   EXPECT_EQ(u0, 0u);
   EXPECT_EQ(u1, 0ull);
@@ -110,15 +110,15 @@ TEST(RandomTest, GetNormalTest) {
   gambler::Random r1;
   gambler::Random r2;
 
-  r0.setSeed(0xaabbccddULL, 0x11223344ULL);
-  r1.setSeed(0xaabbccddULL, 0x11223344ULL);
-  r2.setSeed(0xaabbccddULL, 0x11223344ULL);
+  r0.SetSeed(0xaabbccddULL, 0x11223344ULL);
+  r1.SetSeed(0xaabbccddULL, 0x11223344ULL);
+  r2.SetSeed(0xaabbccddULL, 0x11223344ULL);
 
   float s0 = 0.0f;
   double s1 = 0.0;
 
   for (int i = 0; i < 1000; i++) {
-    float n0 = r0.getNormalFloat32(0.0f, 1.0f);
+    float n0 = r0.GetNormalFloat32(0.0f, 1.0f);
 
     EXPECT_FALSE(std::isnan(n0));
     EXPECT_FALSE(std::isinf(n0));
@@ -131,7 +131,7 @@ TEST(RandomTest, GetNormalTest) {
   EXPECT_NEAR(m0, 0.0f, 0.2f);
 
   for (int i = 0; i < 1000; i++) {
-    double n0 = r1.getNormalFloat64(0.0, 1.0);
+    double n0 = r1.GetNormalFloat64(0.0, 1.0);
 
     EXPECT_FALSE(std::isnan(n0));
     EXPECT_FALSE(std::isinf(n0));
@@ -143,13 +143,13 @@ TEST(RandomTest, GetNormalTest) {
 
   EXPECT_NEAR(m1, 0.0, 0.2);
 
-  float n0 = r2.getNormalFloat32(5.0f, 1.0f);
+  float n0 = r2.GetNormalFloat32(5.0f, 1.0f);
   EXPECT_FALSE(std::isnan(n0));
 }
 
 TEST(GlobalP32Test, GlobalP32Test) {
-  float u0 = gambler::GLOBAL_P32_RANDOM.getUniformFloat32();
-  float u1 = gambler::GLOBAL_P32_RANDOM.getUniformFloat32();
+  float u0 = gambler::GLOBAL_P32_RANDOM.GetUniformFloat32();
+  float u1 = gambler::GLOBAL_P32_RANDOM.GetUniformFloat32();
 
   EXPECT_GE(u0, 0.0f);
   EXPECT_LT(u0, 1.0f);

@@ -28,7 +28,8 @@
  * your project.
  */
 
-#pragma once
+#ifndef GAMBLER_RANDOM_HPP_
+#define GAMBLER_RANDOM_HPP_
 
 #include <cstdint>
 #include <limits>
@@ -44,34 +45,35 @@ private:
 
 public:
   Random() = default;
+  Random(Random &&other) = default;
   Random(const Random &other) = default;
-  Random &operator=(const Random &other) = default;
   Random(uint64_t initial_state, uint64_t initial_sequence);
 
   ~Random() = default;
 
-  Random(Random &&other) noexcept = default;
-  Random &operator=(Random &&other) noexcept = default;
+  Random &operator=(Random &&other) = default;
+  Random &operator=(const Random &other) = default;
 
-  void setSeed(uint64_t initial_state, uint64_t initial_sequence);
+  void SetSeed(uint64_t initial_state, uint64_t initial_sequence);
 
-  template <typename T> T getUniform();
+  template <typename T> T GetUniform();
+  template <typename T> T GetBounded(T bound);
+  template <typename T> T GetNormal(T mu, T sigma);
 
-  uint32_t getUniformUnsignedInt32();
-  uint64_t getUniformUnsignedInt64();
-  float getUniformFloat32();
-  double getUniformFloat64();
+  float GetUniformFloat32();
+  double GetUniformFloat64();
 
-  template <typename T> T getBounded(T bound);
+  uint32_t GetUniformUnsignedInt32();
+  uint64_t GetUniformUnsignedInt64();
 
-  uint32_t getBoundedUnsignedInt32(uint32_t bound);
-  uint64_t getBoundedUnsignedInt64(uint64_t bound);
+  uint32_t GetBoundedUnsignedInt32(uint32_t bound);
+  uint64_t GetBoundedUnsignedInt64(uint64_t bound);
 
-  template <typename T> T getNormal(T mu, T sigma);
-
-  float getNormalFloat32(float mu, float sigma);
-  double getNormalFloat64(double mu, double sigma);
+  float GetNormalFloat32(float mu, float sigma);
+  double GetNormalFloat64(double mu, double sigma);
 };
 
 extern Random GLOBAL_P32_RANDOM;
 } // namespace gambler
+
+#endif // !GAMBLER_RANDOM_HPP_
