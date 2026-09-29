@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
   float a[n];
 
   for (int i = 0; i < n; i++)
-    a[i] = gambler::kGlobalHostRandom.GetUniformFloat32();
+    a[i] = gambler::kGlobalPCG32Random.GetUniformFloat32();
 
   for (int i = 0; i < n; i++)
     std::cout << a[i] << " ";

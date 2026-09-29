@@ -40,10 +40,10 @@
 
 namespace gambler {
 
-class HostRandom {
+class PCG32Random {
 private:
-  uint64_t state_ = 0x853c49e6748fea9bULL;
-  uint64_t increment_ = 0xda3e39cb94b95bdbULL;
+  uint64_t state_ = 0x853c49e6748fea9bull;
+  uint64_t increment_ = 0xda3e39cb94b95bdbull;
 
 #if defined(__STDCPP_FLOAT16_T__)
   std::float32_t normal_float_32_ =
@@ -56,15 +56,15 @@ private:
 #endif
 
 public:
-  HostRandom() = default;
-  HostRandom(HostRandom &&other) = default;
-  HostRandom(const HostRandom &other) = default;
-  HostRandom(uint64_t initial_state, uint64_t initial_sequence);
+  PCG32Random() = default;
+  PCG32Random(PCG32Random &&other) = default;
+  PCG32Random(const PCG32Random &other) = default;
+  PCG32Random(uint64_t initial_state, uint64_t initial_sequence);
 
-  ~HostRandom() = default;
+  ~PCG32Random() = default;
 
-  HostRandom &operator=(HostRandom &&other) = default;
-  HostRandom &operator=(const HostRandom &other) = default;
+  PCG32Random &operator=(PCG32Random &&other) = default;
+  PCG32Random &operator=(const PCG32Random &other) = default;
 
   void SetSeed(uint64_t initial_state, uint64_t initial_sequence);
 
@@ -95,7 +95,7 @@ public:
 #endif
 };
 
-extern HostRandom kGlobalHostRandom;
+extern PCG32Random kGlobalPCG32Random;
 
 } // namespace gambler
 
