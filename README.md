@@ -18,17 +18,27 @@ Gambler is a high-speed random number generator built on top of the famous PCG32
 
 ## Installation
 
-```bash
-cd libgambler/build
+```fish
+cd build
 cmake .. && cmake --build .
 ```
 
 ## Execution
 
-```bash
+### Test
+
+```fish
 cd build
 cmake .. && cmake --build .
-./test
+ctest
+```
+
+### Example
+
+```fish
+cd build
+cmake .. && cmake --build .
+./gambler_example
 ```
 
 ## Troubleshoot
