@@ -41,32 +41,18 @@
 namespace gambler {
 
 class PCG32Random {
-private:
-  uint64_t state_ = 0x853c49e6748fea9bull;
-  uint64_t increment_ = 0xda3e39cb94b95bdbull;
-
-#if defined(__STDCPP_FLOAT16_T__)
-  std::float32_t normal_float_32_ =
-      std::numeric_limits<std::float32_t>::quiet_NaN();
-  std::float64_t normal_float_64_ =
-      std::numeric_limits<std::float64_t>::quiet_NaN();
-#else
-  float normal_float_32_ = std::numeric_limits<float>::quiet_NaN();
-  double normal_float_64_ = std::numeric_limits<double>::quiet_NaN();
-#endif
-
 public:
   PCG32Random() = default;
   PCG32Random(PCG32Random &&other) = default;
   PCG32Random(const PCG32Random &other) = default;
-  PCG32Random(uint64_t initial_state, uint64_t initial_sequence);
+  PCG32Random(std::uint64_t initial_state, std::uint64_t initial_sequence);
 
   ~PCG32Random() = default;
 
   PCG32Random &operator=(PCG32Random &&other) = default;
   PCG32Random &operator=(const PCG32Random &other) = default;
 
-  void SetSeed(uint64_t initial_state, uint64_t initial_sequence);
+  void SetSeed(std::uint64_t initial_state, std::uint64_t initial_sequence);
 
   template <typename T> T GetUniform();
   template <typename T> T GetBounded(T bound);
@@ -80,11 +66,11 @@ public:
   double GetUniformFloat64();
 #endif
 
-  uint32_t GetUniformUnsignedInt32();
-  uint64_t GetUniformUnsignedInt64();
+  std::uint32_t GetUniformUnsignedInt32();
+  std::uint64_t GetUniformUnsignedInt64();
 
-  uint32_t GetBoundedUnsignedInt32(uint32_t bound);
-  uint64_t GetBoundedUnsignedInt64(uint64_t bound);
+  std::uint32_t GetBoundedUnsignedInt32(std::uint32_t bound);
+  std::uint64_t GetBoundedUnsignedInt64(std::uint64_t bound);
 
 #if defined(__STDCPP_FLOAT16_T__)
   std::float32_t GetNormalFloat32(std::float32_t mu, std::float32_t sigma);
@@ -92,6 +78,20 @@ public:
 #else
   float GetNormalFloat32(float mu, float sigma);
   double GetNormalFloat64(double mu, double sigma);
+#endif
+
+private:
+  std::uint64_t state_ = 0x853c49e6748fea9bull;
+  std::uint64_t increment_ = 0xda3e39cb94b95bdbull;
+
+#if defined(__STDCPP_FLOAT16_T__)
+  std::float32_t normal_float_32_ =
+      std::numeric_limits<std::float32_t>::quiet_NaN();
+  std::float64_t normal_float_64_ =
+      std::numeric_limits<std::float64_t>::quiet_NaN();
+#else
+  float normal_float_32_ = std::numeric_limits<float>::quiet_NaN();
+  double normal_float_64_ = std::numeric_limits<double>::quiet_NaN();
 #endif
 };
 
