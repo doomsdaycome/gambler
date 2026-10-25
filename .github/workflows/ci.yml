@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Project
+        run: cmake -B build && cmake --build build
+
+      - name: Run Unit Tests
+        run: ctest --test-dir build 
+
+      - name: Run Examples
+        run: ./build/gambler_example
