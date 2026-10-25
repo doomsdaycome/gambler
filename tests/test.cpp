@@ -1,9 +1,8 @@
-#include <gambler/random.hpp>
+#include <gtest/gtest.h>
 
 #include <cmath>
 #include <cstdint>
-
-#include <gtest/gtest.h>
+#include <gambler/random.hpp>
 
 namespace gambler {
 
@@ -228,4 +227,4 @@ TEST(PCG32RandomTest, TemplateTest) {
   EXPECT_FALSE(std::isnan(nf0));
 }
 
-} // namespace gambler
+}  // namespace gambler

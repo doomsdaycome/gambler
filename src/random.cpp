@@ -53,53 +53,65 @@ void PCG32Random::SetSeed(std::uint64_t initial_state,
   GetUniformUnsignedInt32();
 }
 
-template <> std::int8_t PCG32Random::GetUniform<std::int8_t>() {
+template <>
+std::int8_t PCG32Random::GetUniform<std::int8_t>() {
   return static_cast<std::int8_t>(GetUniformUnsignedInt32());
 }
 
-template <> std::int16_t PCG32Random::GetUniform<std::int16_t>() {
+template <>
+std::int16_t PCG32Random::GetUniform<std::int16_t>() {
   return static_cast<std::int16_t>(GetUniformUnsignedInt32());
 }
 
-template <> std::int32_t PCG32Random::GetUniform<std::int32_t>() {
+template <>
+std::int32_t PCG32Random::GetUniform<std::int32_t>() {
   return static_cast<std::int32_t>(GetUniformUnsignedInt32());
 }
 
-template <> std::int64_t PCG32Random::GetUniform<std::int64_t>() {
+template <>
+std::int64_t PCG32Random::GetUniform<std::int64_t>() {
   return static_cast<std::int64_t>(GetUniformUnsignedInt64());
 }
 
-template <> std::uint8_t PCG32Random::GetUniform<std::uint8_t>() {
+template <>
+std::uint8_t PCG32Random::GetUniform<std::uint8_t>() {
   return static_cast<std::uint8_t>(GetUniformUnsignedInt32());
 }
 
-template <> std::uint16_t PCG32Random::GetUniform<std::uint16_t>() {
+template <>
+std::uint16_t PCG32Random::GetUniform<std::uint16_t>() {
   return static_cast<std::uint16_t>(GetUniformUnsignedInt32());
 }
 
-template <> std::uint32_t PCG32Random::GetUniform<std::uint32_t>() {
+template <>
+std::uint32_t PCG32Random::GetUniform<std::uint32_t>() {
   return GetUniformUnsignedInt32();
 }
 
-template <> std::uint64_t PCG32Random::GetUniform<std::uint64_t>() {
+template <>
+std::uint64_t PCG32Random::GetUniform<std::uint64_t>() {
   return GetUniformUnsignedInt64();
 }
 
 #if defined(__STDCPP_FLOAT16_T__)
-template <> std::float32_t PCG32Random::GetUniform<std::float32_t>() {
+template <>
+std::float32_t PCG32Random::GetUniform<std::float32_t>() {
   return GetUniformFloat32();
 }
 
-template <> std::float64_t PCG32Random::GetUniform<std::float64_t>() {
+template <>
+std::float64_t PCG32Random::GetUniform<std::float64_t>() {
   return GetUniformFloat64();
 }
 #endif
 
-template <> float PCG32Random::GetUniform<float>() {
+template <>
+float PCG32Random::GetUniform<float>() {
   return GetUniformFloat32();
 }
 
-template <> double PCG32Random::GetUniform<double>() {
+template <>
+double PCG32Random::GetUniform<double>() {
   return GetUniformFloat64();
 }
 
@@ -139,11 +151,13 @@ std::float64_t PCG32Random::GetNormal<std::float64_t>(std::float64_t mu,
 }
 #endif
 
-template <> float PCG32Random::GetNormal<float>(float mu, float sigma) {
+template <>
+float PCG32Random::GetNormal<float>(float mu, float sigma) {
   return GetNormalFloat32(mu, sigma);
 }
 
-template <> double PCG32Random::GetNormal<double>(double mu, double sigma) {
+template <>
+double PCG32Random::GetNormal<double>(double mu, double sigma) {
   return GetNormalFloat64(mu, sigma);
 }
 
@@ -190,8 +204,7 @@ uint32_t PCG32Random::GetBoundedUnsignedInt32(std::uint32_t bound) {
   for (;;) {
     std::uint32_t r = GetUniformUnsignedInt32();
 
-    if (r >= threshold)
-      return r % bound;
+    if (r >= threshold) return r % bound;
   }
 }
 
@@ -201,8 +214,7 @@ std::uint64_t PCG32Random::GetBoundedUnsignedInt64(std::uint64_t bound) {
   for (;;) {
     std::uint64_t r = GetUniformUnsignedInt64();
 
-    if (r >= threshold)
-      return r % bound;
+    if (r >= threshold) return r % bound;
   }
 }
 
@@ -315,4 +327,4 @@ double PCG32Random::GetNormalFloat64(double mu, double sigma) {
 #endif
 
 PCG32Random kGlobalPCG32Random = PCG32Random();
-} // namespace gambler
+}  // namespace gambler

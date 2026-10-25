@@ -41,22 +41,25 @@
 namespace gambler {
 
 class PCG32Random {
-public:
+ public:
   PCG32Random() = default;
-  PCG32Random(PCG32Random &&other) = default;
-  PCG32Random(const PCG32Random &other) = default;
+  PCG32Random(PCG32Random&& other) = default;
+  PCG32Random(const PCG32Random& other) = default;
   PCG32Random(std::uint64_t initial_state, std::uint64_t initial_sequence);
 
   ~PCG32Random() = default;
 
-  PCG32Random &operator=(PCG32Random &&other) = default;
-  PCG32Random &operator=(const PCG32Random &other) = default;
+  PCG32Random& operator=(PCG32Random&& other) = default;
+  PCG32Random& operator=(const PCG32Random& other) = default;
 
   void SetSeed(std::uint64_t initial_state, std::uint64_t initial_sequence);
 
-  template <typename T> T GetUniform();
-  template <typename T> T GetBounded(T bound);
-  template <typename T> T GetNormal(T mu, T sigma);
+  template <typename T>
+  T GetUniform();
+  template <typename T>
+  T GetBounded(T bound);
+  template <typename T>
+  T GetNormal(T mu, T sigma);
 
 #if defined(__STDCPP_FLOAT16_T__)
   std::float32_t GetUniformFloat32();
@@ -80,7 +83,7 @@ public:
   double GetNormalFloat64(double mu, double sigma);
 #endif
 
-private:
+ private:
   std::uint64_t state_ = 0x853c49e6748fea9bull;
   std::uint64_t increment_ = 0xda3e39cb94b95bdbull;
 
@@ -97,6 +100,6 @@ private:
 
 extern PCG32Random kGlobalPCG32Random;
 
-} // namespace gambler
+}  // namespace gambler
 
-#endif // !GAMBLER_RANDOM_HPP_
+#endif  // !GAMBLER_RANDOM_HPP_
