@@ -20,4 +20,4 @@ jobs:
         run: ctest --test-dir build 
 
       - name: Run Examples
-        run: ./build/gambler_example
+        run: printf "\t" | ./build/gambler_example
